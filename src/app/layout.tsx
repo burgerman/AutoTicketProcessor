@@ -1,6 +1,8 @@
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
+import { TicketProvider } from '@/context/TicketContext';
+import { AppHeader } from '@/components/app-header';
 
 export const metadata: Metadata = {
   title: 'TicketWise',
@@ -20,8 +22,11 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased" suppressHydrationWarning>
-        {children}
-        <Toaster />
+        <TicketProvider>
+          <AppHeader />
+          {children}
+          <Toaster />
+        </TicketProvider>
       </body>
     </html>
   );
