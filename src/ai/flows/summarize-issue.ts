@@ -17,7 +17,10 @@ const SummarizeIssueInputSchema = z.object({
 export type SummarizeIssueInput = z.infer<typeof SummarizeIssueInputSchema>;
 
 const SummarizeIssueOutputSchema = z.object({
+  title: z.string().describe('A short, descriptive title for the issue.'),
   summary: z.string().describe('A concise summary of the issue described in the ticket.'),
+  category: z.string().describe('The category of the issue (e.g., Bug, Feature Request, Question).'),
+  severity: z.string().describe('The severity of the issue (e.g., Low, Medium, High, Critical).'),
 });
 export type SummarizeIssueOutput = z.infer<typeof SummarizeIssueOutputSchema>;
 
@@ -29,7 +32,7 @@ const prompt = ai.definePrompt({
   name: 'summarizeIssuePrompt',
   input: {schema: SummarizeIssueInputSchema},
   output: {schema: SummarizeIssueOutputSchema},
-  prompt: `You are an expert at summarizing technical support tickets.  Please provide a concise summary of the issue described in the following ticket text.\n\nTicket Text:\n{{{ticketText}}}`,
+  prompt: `You are an expert in preprocessing and summarizing technical support tickets. You're able to provide a concise and informative summary in JSON format of the issue described in the following ticket text. Your response should include a title, a summary, the issue category (e.g., Bug, Feature Request, Question), and the severity (e.g., Low, Medium, High, Critical).\n\nTicket Text:\n{{{ticketText}}}`,
 });
 
 const summarizeIssueFlow = ai.defineFlow(

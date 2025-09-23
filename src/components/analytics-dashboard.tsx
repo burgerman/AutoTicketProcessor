@@ -79,35 +79,10 @@ export function AnalyticsDashboard({ processedTickets }: AnalyticsDashboardProps
 
             {report && (
               <div className="space-y-6 pt-4">
-                <div className="space-y-2">
-                    <h3 className="text-lg font-semibold text-primary">Report Summary</h3>
-                    <p className="text-sm text-foreground/80">{report.reportSummary}</p>
-                </div>
-                <Separator />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <TrendingUp className="h-5 w-5 text-primary" />
-                      <h4 className="font-semibold">Identified Trends</h4>
-                    </div>
-                    <p className="text-sm text-foreground/80">{report.identifiedTrends}</p>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <AlertCircle className="h-5 w-5 text-primary" />
-                      <h4 className="font-semibold">Common Issues</h4>
-                    </div>
-                    <p className="text-sm text-foreground/80">{report.commonIssues}</p>
-                  </div>
-                </div>
-                <Separator />
-                 <div className="space-y-3">
-                    <div className="flex items-center gap-2">
-                      <Construction className="h-5 w-5 text-primary" />
-                      <h4 className="font-semibold">Improvement Areas</h4>
-                    </div>
-                    <p className="text-sm text-foreground/80">{report.improvementAreas}</p>
-                  </div>
+                <h3 className="text-lg font-semibold text-primary">Analytics Report (JSON)</h3>
+                <pre className="bg-gray-100 p-4 rounded-md overflow-x-auto text-sm">
+                  <code>{JSON.stringify(report, null, 2)}</code>
+                </pre>
               </div>
             )}
         </CardContent>

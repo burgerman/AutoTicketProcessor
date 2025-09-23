@@ -26,15 +26,17 @@ const GenerateAnalyticsReportOutputSchema = z.object({
     .describe(
       'A concise summary of the analytics report, highlighting key trends, common issues, and areas for improvement in cloud services.'
     ),
-  identifiedTrends: z
-    .string()
-    .describe('A list of identified trends in the processed tickets.'),
-  commonIssues: z
-    .string()
-    .describe('A description of the common issues identified in the tickets.'),
-  improvementAreas: z
-    .string()
-    .describe(
+  identifiedTrends: z.array(z.object({
+    trend: z.string().describe("A specific trend identified."),
+    description: z.string().describe("A description of the trend."),
+    count: z.number().describe("Number of tickets related to this trend.")
+  })).describe("A list of identified trends in the processed tickets."),
+  commonIssues: z.array(z.object({
+    issue: z.string().describe("A common issue."),
+    description: z.string().describe("Description of the issue and its impact."),
+    suggestedTeam: z.string().describe("The downstream support team to route the ticket to.")
+  })).describe('A description of the common issues identified in the tickets.'),
+  improvementAreas: z.array(z.string()).describe(
       'Suggested areas for improvement based on the analysis of the ticket data.'
     ),
 });
@@ -54,7 +56,7 @@ const prompt = ai.definePrompt({
 
   Analyze the provided ticket data to identify trends, common issues, and areas for improvement in our cloud services.
 
-  Based on your analysis, create a concise report summary, list the identified trends, describe the common issues, and suggest areas for improvement.
+  Based on your analysis, please create a concise report summary. The report should list the identified issues (as an array of objects with issue, description, and suggestedTeam), describe the common causes of these issues, and suggest which downstream support team the ticket should be routed to. Also, provide a list of identified trends (as an array of objects with trend, description, and count) and a list of improvement areas (as an array of strings).
 
   Ticket Data: {{{ticketData}}}
   `,

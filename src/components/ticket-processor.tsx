@@ -14,7 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Wand2 } from 'lucide-react';
 
 const formSchema = z.object({
-  ticketText: z.string().min(20, { message: 'Ticket text must be at least 20 characters.' }).max(5000, { message: 'Ticket text cannot exceed 5000 characters.' }),
+  ticketText: z.string().min(20, { message: 'Ticket text must be at least 20 characters.' }).max(10000, { message: 'Ticket text cannot exceed 10000 characters.' }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
