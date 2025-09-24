@@ -88,25 +88,25 @@ export function AnalyticsDashboard({ processedTickets }: AnalyticsDashboardProps
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <TrendingUp className="h-5 w-5 text-primary" />
-                      <h4 className="font-semibold">Identified Trends</h4>
+                      <h4 className="font-semibold">Identified Issues</h4>
                     </div>
-                    <p className="text-sm text-foreground/80">{report.identifiedTrends}</p>
+                    <p className="text-sm text-foreground/80">{report.identifiedIssues}</p>
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <AlertCircle className="h-5 w-5 text-primary" />
-                      <h4 className="font-semibold">Common Issues</h4>
+                      <h4 className="font-semibold">Common Causes</h4>
                     </div>
-                    <p className="text-sm text-foreground/80">{report.commonIssues}</p>
+                    <p className="text-sm text-foreground/80">{report.commonCauses}</p>
                   </div>
                 </div>
                 <Separator />
                  <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <Construction className="h-5 w-5 text-primary" />
-                      <h4 className="font-semibold">Improvement Areas</h4>
+                      <h4 className="font-semibold">Quick Fixes</h4>
                     </div>
-                    <p className="text-sm text-foreground/80">{report.improvementAreas}</p>
+                    <p className="text-sm text-foreground/80">{report.solutions}</p>
                   </div>
               </div>
             )}

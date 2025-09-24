@@ -2,6 +2,7 @@
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { AnalyticsReport } from '@/lib/types';
+import {generateReportNumber} from '@/lib/actions';
 
 let supabase: SupabaseClient | undefined;
 
@@ -23,14 +24,16 @@ function getSupabaseClient(): SupabaseClient {
 
 export async function saveAnalyticsReport(report: AnalyticsReport): Promise<void> {
   const client = getSupabaseClient();
+  const reportNum = await generateReportNumber();
   const { data, error } = await client
     .from('analytics_reports')
     .insert([
       {
+        report_id: reportNum,
         report_summary: report.reportSummary,
-        identified_trends: report.identifiedTrends,
-        common_issues: report.commonIssues,
-        improvement_areas: report.improvementAreas,
+        identified_issues: report.identifiedIssues,
+        common_causes: report.commonCauses,
+        quick_fixes: report.solutions,
       },
     ]);
 

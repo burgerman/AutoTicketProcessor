@@ -16,7 +16,7 @@ const GenerateAnalyticsReportInputSchema = z.object({
   ticketData: z
     .string()
     .describe(
-      'A string containing the data from processed tickets, including issue descriptions, affected services, and other relevant information.'
+      'A string containing the data from the summary of the raw ticket, including issue descriptions, impacted services, and other key information.'
     ),
 });
 export type GenerateAnalyticsReportInput = z.infer<typeof GenerateAnalyticsReportInputSchema>;
@@ -25,18 +25,18 @@ const GenerateAnalyticsReportOutputSchema = z.object({
   reportSummary: z
     .string()
     .describe(
-      'A concise summary of the analytics report, highlighting key trends, common issues, and areas for improvement in cloud services.'
+      'A concise summary of the analytics report, highlighting key issues, common causes, and quick fixes.'
     ),
-  identifiedTrends: z
+  identifiedIssues: z
     .string()
-    .describe('A list of identified trends in the processed tickets.'),
-  commonIssues: z
+    .describe('A list of identified issues in the ticket.'),
+  commonCauses: z
     .string()
-    .describe('A description of the common issues identified in the tickets.'),
-  improvementAreas: z
+    .describe('A description of the common issues identified in the ticket data.'),
+  solutions: z
     .string()
     .describe(
-      'Suggested areas for improvement based on the analysis of the ticket data.'
+      'Suggested fixes or solutions to identified issues based on the analysis of the ticket data.'
     ),
 });
 export type GenerateAnalyticsReportOutput = z.infer<typeof GenerateAnalyticsReportOutputSchema>;
@@ -51,11 +51,11 @@ const prompt = ai.definePrompt({
   name: 'generateAnalyticsReportPrompt',
   input: {schema: GenerateAnalyticsReportInputSchema},
   output: {schema: GenerateAnalyticsReportOutputSchema},
-  prompt: `You are an AI assistant specializing in generating analytics reports based on processed tickets.
+  prompt: `You are an expert specializing in analyzing issue tickets and generating analytics reports based on the summary of the tickets
 
-  Analyze the provided ticket data to identify trends, common issues, and areas for improvement in our cloud services.
+  Analyze the given ticket data to identify issues, common causes, and solutions in our cloud services.
 
-  Based on your analysis, create a concise report summary, list the identified trends, describe the common issues, and suggest areas for improvement.
+  Based on the analysis, create a concise and professional report summary, list the identified issues, describe the common causes, and suggest known fixes or solutions to these issues.
 
   Ticket Data: {{{ticketData}}}
   `,

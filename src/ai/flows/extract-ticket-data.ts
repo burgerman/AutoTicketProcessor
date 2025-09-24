@@ -32,11 +32,9 @@ const prompt = ai.definePrompt({
   name: 'extractTicketDataPrompt',
   input: {schema: ExtractTicketDataInputSchema},
   output: {schema: ExtractTicketDataOutputSchema},
-  prompt: `You are an expert support ticket analyst.
-
-You will analyze the provided ticket text and extract key data points, including the affected service, issue type, and priority.
-
-You will also generate a concise summary of the issue described in the ticket.
+  prompt: `You are an expert in preprocessing and summarizing issue tickets.
+You should analyze the raw ticket text and extract key information, including the impacted service, issue type, and priority.
+You should also generate a concise summary of the issue ticket.
 
 Ticket Text: {{{ticketText}}}
 `,

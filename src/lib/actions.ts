@@ -3,6 +3,13 @@
 import { extractTicketData, type ExtractTicketDataInput, type ExtractTicketDataOutput } from "@/ai/flows/extract-ticket-data";
 import { generateAnalyticsReport, type GenerateAnalyticsReportInput, type GenerateAnalyticsReportOutput } from "@/ai/flows/generate-analytics-report";
 
+
+export async function generateReportNumber(): Promise<string> {
+  const now = new Date();
+  const timestamp = `${now.getFullYear()}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}${now.getSeconds().toString().padStart(2, '0')}`;
+  return `Analytics-${timestamp}`;
+}
+
 export async function handleExtractTicketData(
   input: ExtractTicketDataInput
 ): Promise<ExtractTicketDataOutput | { error: string }> {
