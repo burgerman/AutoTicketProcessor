@@ -21,6 +21,20 @@ function getSupabaseClient(): SupabaseClient {
   return supabase;
 }
 
+export async function loadHistoricalReportsSupabase(): Promise<any> { 
+    const supabase = getSupabaseClient();
+    const { data, error } = await supabase
+      .from('analytics_reports')
+      .select('*')
+      .order('created_time', { ascending: false })
+      .limit(10);
+    if (error) {
+        console.error('Error loading analytics report from Supabase:', error);
+        throw new Error(`Failed to load report: ${error.message}`);
+    }
+    return data;
+}
+
 
 export async function saveAnalyticsReportSupabase(report: AnalyticsReport, reportNum: string): Promise<void> {
   const client = getSupabaseClient();

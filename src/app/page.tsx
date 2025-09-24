@@ -9,6 +9,9 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Server, AlertTriangle, ChevronUp, ChevronDown, Minus, Ticket } from 'lucide-react';
 
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import History from "./history/page";
+
 export default function Home() {
   const [processedTickets, setProcessedTickets] = useState<ExtractedTicketData[]>([]);
 
@@ -53,60 +56,71 @@ export default function Home() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-          <div className="lg:col-span-3 flex flex-col gap-8">
-            <TicketProcessor onTicketProcessed={handleTicketProcessed} />
-            <AnalyticsDashboard processedTickets={processedTickets} />
-          </div>
-          
-          <div className="lg:col-span-2 flex flex-col gap-4 lg:sticky lg:top-8">
-             <Card>
-                <CardHeader>
-                    <CardTitle className="text-2xl font-semibold tracking-tight">Processed Tickets</CardTitle>
-                    <CardDescription>A list of tickets you have processed in this session.</CardDescription>
-                </CardHeader>
-                <CardContent className="p-0">
-                    <ScrollArea className="h-[60vh] min-h-[400px]">
-                      <div className="p-6">
-                        {processedTickets.length === 0 ? (
-                            <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground py-16">
-                                <Ticket className="w-16 h-16 mb-4 opacity-50" />
-                                <h3 className="text-lg font-medium">No tickets processed yet</h3>
-                                <p className="text-sm">Your processed tickets will appear here.</p>
-                            </div>
-                        ) : (
-                            <div className="space-y-4">
-                                {processedTickets.map((ticket, index) => (
-                                    <Card key={index} className="bg-secondary/50">
-                                        <CardHeader className="pb-4">
-                                            <CardTitle className="text-base font-semibold leading-snug">{ticket.summary}</CardTitle>
-                                        </CardHeader>
-                                        <CardContent>
-                                            <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
-                                                <div className="flex items-center gap-2" title="Affected Service">
-                                                    <Server className="h-4 w-4 text-primary" />
-                                                    <Badge variant="secondary">{ticket.affectedService}</Badge>
+        <Tabs defaultValue="processor">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="processor">Processor</TabsTrigger>
+            <TabsTrigger value="history">History</TabsTrigger>
+          </TabsList>
+          <TabsContent value="processor">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+              <div className="lg:col-span-3 flex flex-col gap-8">
+                <TicketProcessor onTicketProcessed={handleTicketProcessed} />
+                <AnalyticsDashboard processedTickets={processedTickets} />
+              </div>
+              
+              <div className="lg:col-span-2 flex flex-col gap-4 lg:sticky lg:top-8">
+                 <Card>
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-semibold tracking-tight">Processed Tickets</CardTitle>
+                        <CardDescription>A list of tickets you have processed in this session.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <ScrollArea className="h-[60vh] min-h-[400px]">
+                          <div className="p-6">
+                            {processedTickets.length === 0 ? (
+                                <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground py-16">
+                                    <Ticket className="w-16 h-16 mb-4 opacity-50" />
+                                    <h3 className="text-lg font-medium">No tickets processed yet</h3>
+                                    <p className="text-sm">Your processed tickets will appear here.</p>
+                                </div>
+                            ) : (
+                                <div className="space-y-4">
+                                    {processedTickets.map((ticket, index) => (
+                                        <Card key={index} className="bg-secondary/50">
+                                            <CardHeader className="pb-4">
+                                                <CardTitle className="text-base font-semibold leading-snug">{ticket.summary}</CardTitle>
+                                            </CardHeader>
+                                            <CardContent>
+                                                <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+                                                    <div className="flex items-center gap-2" title="Affected Service">
+                                                        <Server className="h-4 w-4 text-primary" />
+                                                        <Badge variant="secondary">{ticket.affectedService}</Badge>
+                                                    </div>
+                                                    <div className="flex items-center gap-2" title="Issue Type">
+                                                        <AlertTriangle className="h-4 w-4 text-primary" />
+                                                         <Badge variant="secondary">{ticket.issueType}</Badge>
+                                                    </div>
+                                                    <div className="flex items-center gap-2" title="Priority">
+                                                        {getPriorityIcon(ticket.priority)}
+                                                        <Badge variant={getPriorityBadgeVariant(ticket.priority)}>{ticket.priority}</Badge>
+                                                    </div>
                                                 </div>
-                                                <div className="flex items-center gap-2" title="Issue Type">
-                                                    <AlertTriangle className="h-4 w-4 text-primary" />
-                                                     <Badge variant="secondary">{ticket.issueType}</Badge>
-                                                </div>
-                                                <div className="flex items-center gap-2" title="Priority">
-                                                    {getPriorityIcon(ticket.priority)}
-                                                    <Badge variant={getPriorityBadgeVariant(ticket.priority)}>{ticket.priority}</Badge>
-                                                </div>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                ))}
-                            </div>
-                        )}
-                      </div>
-                    </ScrollArea>
-                </CardContent>
-             </Card>
-          </div>
-        </div>
+                                            </CardContent>
+                                        </Card>
+                                    ))}
+                                </div>
+                            )}
+                          </div>
+                        </ScrollArea>
+                    </CardContent>
+                 </Card>
+              </div>
+            </div>
+          </TabsContent>
+          <TabsContent value="history">
+            <History />
+          </TabsContent>
+        </Tabs>
       </div>
     </main>
   );

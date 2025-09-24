@@ -5,7 +5,7 @@ import path from 'path';
 import { extractTicketData, type ExtractTicketDataInput, type ExtractTicketDataOutput } from "@/ai/flows/extract-ticket-data";
 import { generateAnalyticsReport, type GenerateAnalyticsReportInput, type GenerateAnalyticsReportOutput } from "@/ai/flows/generate-analytics-report";
 import type {AnalyticsReport} from "@/lib/types";
-import {saveAnalyticsReportSupabase} from "@/lib/supabase";
+import {saveAnalyticsReportSupabase, loadHistoricalReportsSupabase} from "@/lib/supabase";
 
 const PROCESSED_TICKETS_DIR = path.join(process.cwd(), 'processed-tickets');
 const ANALYTICS_REPORTS_DIR = path.join(process.cwd(), 'analytics-reports');
@@ -103,3 +103,14 @@ export async function handleGenerateAnalyticsReport(
       return { error: `Failed to generate analytics report: ${errorMessage}` };
     }
   }
+
+export async function getLatestAnalyticsReports(): Promise<AnalyticsReport[] | { error: string }> {
+  try {
+    const data = await loadHistoricalReportsSupabase();
+    return data as AnalyticsReport[];
+  } catch (e) {
+    console.error(e);
+    const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
+    return { error: `Failed to fetch analytics reports: ${errorMessage}` };
+  }
+}

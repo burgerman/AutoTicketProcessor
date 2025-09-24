@@ -1,0 +1,7 @@
+{
+  "impactedService": "Managed Database (RDS)",
+  "issueType": "Database Inaccessibility",
+  "priority": "Critical",
+  "summary": "The production database instance (db-prod-01) is inaccessible, leading to application errors. Troubleshooting efforts including restarting the instance and verifying network settings have not resolved the issue. A recent database configuration update was performed yesterday.",
+  "ticketNumber": "database-inaccessibi-20250924175349"
+}

@@ -1,0 +1,7 @@
+{
+  "impactedService": "Compute / Virtual Machines",
+  "issueType": "Service Unavailability/Unresponsiveness",
+  "priority": "High",
+  "summary": "Virtual machines (gcp-vm-prod-01, gcp-vm-prod-02) in the production environment are intermittently unresponsive, causing service downtime for the Customer Portal application.",
+  "ticketNumber": "service-unavailabili-20250924175409"
+}

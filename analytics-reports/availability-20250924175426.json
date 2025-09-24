@@ -1,0 +1,37 @@
+{
+  "reportSummary": "This report summarizes critical availability issues affecting production services. Key problems include intermittent Virtual Machine unresponsiveness and critical database inaccessibility, both leading to service downtime and application errors. Recent configuration updates are a suspected common cause for database issues.",
+  "issueType": "Availability",
+  "identifiedIssues": [
+    {
+      "issue": "Virtual Machine Unresponsiveness",
+      "description": "Intermittent unresponsiveness of production virtual machines (gcp-vm-prod-01, gcp-vm-prod-02) impacting the Customer Portal application.",
+      "count": 1
+    },
+    {
+      "issue": "Database Inaccessibility",
+      "description": "Production database instance (db-prod-01) is inaccessible, causing application errors, possibly linked to a recent configuration update.",
+      "count": 1
+    }
+  ],
+  "commonCauses": [
+    {
+      "cause": "Configuration Changes",
+      "description": "Recent configuration updates, especially for critical services like databases, can introduce regressions or break existing functionalities.",
+      "suggestedTeam": "Configuration Management/DBA Team"
+    },
+    {
+      "cause": "Infrastructure Instability",
+      "description": "Underlying infrastructure components (VMs, network) experiencing intermittent issues leading to service degradation or unavailability.",
+      "suggestedTeam": "Infrastructure Operations/Cloud Engineering"
+    }
+  ],
+  "solutions": [
+    "Review and roll back recent configuration changes, especially for critical database services.",
+    "Implement robust change management processes with pre-deployment testing and validation.",
+    "Investigate VM and network logs for root cause analysis of unresponsiveness.",
+    "Monitor resource utilization and network performance of critical compute instances.",
+    "Establish clearer escalation paths and automated alerts for production outages.",
+    "Enhance diagnostic tooling for faster identification of root causes in production environments."
+  ],
+  "reportNumber": "availability-20250924175426"
+}

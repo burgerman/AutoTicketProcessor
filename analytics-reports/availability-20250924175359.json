@@ -1,0 +1,25 @@
+{
+  "reportSummary": "This report summarizes a critical availability issue affecting a production database instance (db-prod-01), which is currently inaccessible and causing application errors. The issue is strongly correlated with a recent database configuration update.",
+  "issueType": "Availability",
+  "identifiedIssues": [
+    {
+      "issue": "Production Database Inaccessibility",
+      "description": "The production database instance (db-prod-01) is inaccessible, leading to severe application errors and service disruption.",
+      "count": 1
+    }
+  ],
+  "commonCauses": [
+    {
+      "cause": "Recent Database Configuration Update",
+      "description": "A database configuration update was performed yesterday, which is the most likely root cause for the current inaccessibility issue, as other troubleshooting steps failed.",
+      "suggestedTeam": "Database Operations Team"
+    }
+  ],
+  "solutions": [
+    "Rollback the recent database configuration update to its previous stable state.",
+    "Thoroughly review the logs for errors related to the database configuration changes.",
+    "Verify network settings, security groups, and NACLs to ensure proper connectivity to the database.",
+    "If rollback is not feasible or effective, prepare for a database restore from a recent backup."
+  ],
+  "reportNumber": "availability-20250924175359"
+}
