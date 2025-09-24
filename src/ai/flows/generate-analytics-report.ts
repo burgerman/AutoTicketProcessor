@@ -10,6 +10,7 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
+import { saveAnalyticsReport } from '@/lib/supabase';
 
 const GenerateAnalyticsReportInputSchema = z.object({
   ticketData: z
@@ -68,6 +69,9 @@ const generateAnalyticsReportFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
+    if (output) {
+      await saveAnalyticsReport(output);
+    }
     return output!;
   }
 );
