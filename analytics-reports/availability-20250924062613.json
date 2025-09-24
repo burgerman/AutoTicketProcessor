@@ -1,0 +1,34 @@
+{
+  "reportSummary": "The database instance db-prod-01 is inaccessible, leading to application errors. The issue is ongoing since September 23, 2025, at 04:00 PM GMT. Troubleshooting steps like instance restart and security group verification have been tried.",
+  "issueType": "Availability",
+  "identifiedIssues": [
+    {
+      "issue": "Database Inaccessibility",
+      "description": "Database instance db-prod-01 is inaccessible.",
+      "count": 1
+    }
+  ],
+  "commonCauses": [
+    {
+      "cause": "Database Instance Failure",
+      "description": "The database instance might have failed due to underlying hardware issues, software bugs, or resource exhaustion.",
+      "suggestedTeam": "Database Support Team"
+    },
+    {
+      "cause": "Networking Issues",
+      "description": "There may be network connectivity problems preventing access to the database instance.",
+      "suggestedTeam": "Networking Team"
+    },
+    {
+      "cause": "Security Group Configuration",
+      "description": "Incorrect security group rules could be blocking access to the database instance.",
+      "suggestedTeam": "Cloud Security Team"
+    }
+  ],
+  "improvementAreas": [
+    "Implement automated monitoring and alerting for database instance availability.",
+    "Enhance database instance failure recovery procedures.",
+    "Review and optimize security group configurations for database instances."
+  ],
+  "reportNumber": "availability-20250924062613"
+}

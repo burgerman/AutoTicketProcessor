@@ -1,8 +1,0 @@
-[
-  {
-    "affectedService": "Compute / Virtual Machines",
-    "issueType": "Unresponsive Virtual Machines",
-    "priority": "High",
-    "summary": "Virtual machines in the production environment are intermittently becoming unresponsive, leading to service downtime and affecting customer-facing applications."
-  }
-]

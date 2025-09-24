@@ -17,10 +17,10 @@ const ExtractTicketDataInputSchema = z.object({
 export type ExtractTicketDataInput = z.infer<typeof ExtractTicketDataInputSchema>;
 
 const ExtractTicketDataOutputSchema = z.object({
-  affectedService: z.string().describe('The service affected by the issue.'),
+  impactedService: z.string().describe('The service impacted by the issue.'),
   issueType: z.string().describe('The type of issue reported in the ticket.'),
   priority: z.string().describe('The priority level of the ticket (e.g., High, Medium, Low).'),
-  summary: z.string().describe('A brief summary of the ticket issue.'),
+  summary: z.string().describe('A concise and professional summary of the ticket.'),
 });
 export type ExtractTicketDataOutput = z.infer<typeof ExtractTicketDataOutputSchema>;
 
@@ -32,12 +32,9 @@ const prompt = ai.definePrompt({
   name: 'extractTicketDataPrompt',
   input: {schema: ExtractTicketDataInputSchema},
   output: {schema: ExtractTicketDataOutputSchema},
-  prompt: `You are an expert support ticket analyst.
-
-You will analyze the provided ticket text and extract key data points, including the affected service, issue type, and priority.
-
-You will also generate a concise summary of the issue described in the ticket.
-
+  prompt: `You are an expert in ticket preprocessing and concerned information extraction.
+You're able to analyze the given ticket text and extract key information, including the impacted service, issue type, and priority.
+You should also generate a concise summary of the issue described in the ticket.
 Ticket Text: {{{ticketText}}}
 `,
 });

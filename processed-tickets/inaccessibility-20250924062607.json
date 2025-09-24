@@ -1,0 +1,7 @@
+{
+  "impactedService": "Managed Database (RDS)",
+  "issueType": "Inaccessibility",
+  "priority": "Critical",
+  "summary": "Database instance db-prod-01 is inaccessible, causing application errors. The issue started on September 23, 2025, at 04:00 PM GMT and is currently ongoing. Troubleshooting steps, including restarting the instance and verifying security group and VPC settings, have been attempted.",
+  "ticketNumber": "inaccessibility-20250924062607"
+}

@@ -1,0 +1,7 @@
+{
+  "impactedService": "Managed Database (RDS)",
+  "issueType": "Database Inaccessibility",
+  "priority": "High",
+  "summary": "The db-prod-01 database instance is inaccessible, causing critical application errors. The application is unable to connect, resulting in a 'Database connection failed: Timeout' error. Investigation and resolution are required.",
+  "ticketNumber": "database-inaccessibi-20250924164148"
+}

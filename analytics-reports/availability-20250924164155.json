@@ -1,0 +1,36 @@
+{
+  "reportSummary": "The analytics report highlights a critical availability issue with the db-prod-01 database instance, rendering it inaccessible and causing application errors due to connection timeouts.",
+  "issueType": "Availability",
+  "identifiedIssues": [
+    {
+      "issue": "Database Inaccessibility",
+      "description": "The db-prod-01 database instance is inaccessible, leading to critical application errors.",
+      "count": 1
+    },
+    {
+      "issue": "Connection Timeout",
+      "description": "Applications are failing to connect to the database instance, resulting in 'Database connection failed: Timeout' errors.",
+      "count": 1
+    }
+  ],
+  "commonCauses": [
+    {
+      "cause": "Network Connectivity Issues",
+      "description": "Disruption in network path between the application and the database instance, or misconfigured security groups/firewall rules.",
+      "suggestedTeam": "Network Operations Team"
+    },
+    {
+      "cause": "Database Service Unavailability",
+      "description": "The database service on db-prod-01 might be stopped, crashed, or unresponsive due to resource exhaustion or internal errors.",
+      "suggestedTeam": "Database Operations Team"
+    }
+  ],
+  "solutions": [
+    "Verify the operational status of the db-prod-01 instance.",
+    "Examine database logs for any errors, crashes, or resource exhaustion.",
+    "Check network connectivity and routing between the application servers and the database instance.",
+    "Review security group and firewall rules to ensure proper ingress/egress for database connections.",
+    "Consider restarting the database instance if other checks don't yield a solution and it's deemed safe."
+  ],
+  "reportNumber": "availability-20250924164155"
+}

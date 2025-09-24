@@ -24,20 +24,25 @@ const GenerateAnalyticsReportOutputSchema = z.object({
   reportSummary: z
     .string()
     .describe(
-      'A concise summary of the analytics report, highlighting key trends, common issues, and areas for improvement in cloud services.'
+      'A concise summary of the analytics report, highlighting key issues, common issues, and areas for improvement in cloud services.'
     ),
-  identifiedTrends: z.array(z.object({
-    trend: z.string().describe("A specific trend identified."),
-    description: z.string().describe("A description of the trend."),
-    count: z.number().describe("Number of tickets related to this trend.")
-  })).describe("A list of identified trends in the processed tickets."),
-  commonIssues: z.array(z.object({
-    issue: z.string().describe("A common issue."),
-    description: z.string().describe("Description of the issue and its impact."),
+  issueType: z
+    .string()
+    .describe(
+      'Type of issue identified (e.g., Performance, Security, Availability, Consistency, Persistency).'
+    ),
+  identifiedIssues: z.array(z.object({
+    issue: z.string().describe("A specific issue identified."),
+    description: z.string().describe("A description of the issue."),
+    count: z.number().describe("Number of tickets related to this issue.")
+  })).describe("A list of identified issues in the processed tickets."),
+  commonCauses: z.array(z.object({
+    cause: z.string().describe("The most common cause."),
+    description: z.string().describe("Description of the cause and its impact."),
     suggestedTeam: z.string().describe("The downstream support team to route the ticket to.")
   })).describe('A description of the common issues identified in the tickets.'),
-  improvementAreas: z.array(z.string()).describe(
-      'Suggested areas for improvement based on the analysis of the ticket data.'
+  solutions: z.array(z.string()).describe(
+      'Suggested fixes or solutions based on the identified issues.'
     ),
 });
 export type GenerateAnalyticsReportOutput = z.infer<typeof GenerateAnalyticsReportOutputSchema>;
@@ -52,11 +57,11 @@ const prompt = ai.definePrompt({
   name: 'generateAnalyticsReportPrompt',
   input: {schema: GenerateAnalyticsReportInputSchema},
   output: {schema: GenerateAnalyticsReportOutputSchema},
-  prompt: `You are an AI assistant specializing in generating analytics reports based on processed tickets.
+  prompt: `You are an AI assistant specializing in analyzing the summary of the issue ticket and generating analytics reports based on the given summary.
 
-  Analyze the provided ticket data to identify trends, common issues, and areas for improvement in our cloud services.
+  Analyze the provided ticket data to identify type of issues, key issues, common causes of these issues, and known fixes or solutions to these issues.
 
-  Based on your analysis, please create a concise report summary. The report should list the identified issues (as an array of objects with issue, description, and suggestedTeam), describe the common causes of these issues, and suggest which downstream support team the ticket should be routed to. Also, provide a list of identified trends (as an array of objects with trend, description, and count) and a list of improvement areas (as an array of strings).
+  Based on your analysis, please create a concise report summary. The report should include the type of issue identified (e.g., Performance, Security, Availability, Consistency, Persistency), list the identified issues (as an array of objects with issue, description, and suggestedTeam), describe the common causes of these issues, and suggest which downstream support team the ticket should be routed to. Also, provide a list of identified issues (as an array of objects with trend, description, and count) and a list of improvement areas (as an array of strings).
 
   Ticket Data: {{{ticketData}}}
   `,

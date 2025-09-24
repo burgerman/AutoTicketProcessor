@@ -22,7 +22,7 @@ export function AnalyticsDashboard({ processedTickets }: AnalyticsDashboardProps
     setIsLoading(true);
     setReport(null);
     const ticketDataString = processedTickets
-      .map(t => `Ticket Summary: ${t.summary}\nAffected Service: ${t.affectedService}\nIssue Type: ${t.issueType}\nPriority: ${t.priority}`)
+      .map(t => `Ticket Summary: ${t.summary}\nAffected Service: ${t.impactedService}\nIssue Type: ${t.issueType}\nPriority: ${t.priority}`)
       .join('\n---\n');
     
     const response = await handleGenerateAnalyticsReport({ ticketData: ticketDataString });
