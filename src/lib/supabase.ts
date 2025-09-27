@@ -2,7 +2,8 @@
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import type { AnalyticsReport } from '@/lib/types';
-import {generateReportNumber} from '@/lib/actions';
+import type { ExtractTicketDataInput, ExtractTicketDataOutput } from "@/ai/flows/extract-ticket-data";
+import {generateTicketNumber, generateReportNumber} from '@/lib/actions';
 
 let supabase: SupabaseClient | undefined;
 
@@ -21,6 +22,26 @@ function getSupabaseClient(): SupabaseClient {
   supabase = createClient(supabaseUrl, supabaseKey);
   return supabase;
 }
+
+export async function saveProcessedTicket(ticket: string, ticketExtract : ExtractTicketDataOutput): Promise<void> {
+  const client = getSupabaseClient();
+  const ticketID = await generateTicketNumber(ticketExtract.issueType);
+  const { data, error } = await client
+    .from('ticket_table')
+    .insert([
+      {
+        ticket_id: ticketID,
+        ticket_raw_text: ticket,
+        extract_data: JSON.stringify(ticketExtract),
+      },
+    ]);
+
+  if (error) {
+    console.error('Error saving the ticket to Supabase:', error);
+    throw new Error(`Failed to save ticket: ${error.message}`);
+  }
+}
+
 
 export async function saveAnalyticsReport(report: AnalyticsReport): Promise<void> {
   const client = getSupabaseClient();
